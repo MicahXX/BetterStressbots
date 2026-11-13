@@ -12,3 +12,9 @@
 /v26/.gradle/
 /v26/build/
 /v26/build/classes/java/main/
+/v26.1.x/.gradle/
+/v26.1.x/build/
+/v26.2/.gradle/
+/v26.2/build/
+/v26.3/.gradle/
+/v26.3/build/

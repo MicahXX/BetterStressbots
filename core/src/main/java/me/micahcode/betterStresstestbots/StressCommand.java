@@ -227,8 +227,7 @@ public class StressCommand implements CommandExecutor, TabCompleter {
     private void sendStatus(CommandSender sender) {
         sender.sendMessage(PREFIX + MUTED + "───────────────────────");
         sender.sendMessage(PREFIX + "Bots: " + ACCENT + manager.getBotCount()
-                + MUTED + " / target " + ACCENT + manager.getTargetCount()
-                + MUTED + " (cap " + BotManager.MAX_BOTS + ")");
+                + MUTED + " / target " + ACCENT + manager.getTargetCount());
         sender.sendMessage(MUTED + "  Speed: §f" + manager.getSpeed()
                 + MUTED + "  Radius: §f" + manager.getRadius()
                 + MUTED + "  Mode: §f" + manager.getGroundMode());

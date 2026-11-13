@@ -29,9 +29,6 @@ public class BotManager {
         }
     }
 
-    // just to be safe
-    public static final int MAX_BOTS = 5000;
-
     private final StressTestPlugin plugin;
     private final List<IFakePlayer> bots = new ArrayList<>();
 
@@ -57,8 +54,9 @@ public class BotManager {
         }
     }
 
+    /** Sets the requested count without an upper cap; negative counts become zero. */
     public void setTargetCount(int count) {
-        targetCount = Math.min(Math.max(0, count), MAX_BOTS);
+        targetCount = Math.max(0, count);
     }
 
     public void setSpeed(double speed) {

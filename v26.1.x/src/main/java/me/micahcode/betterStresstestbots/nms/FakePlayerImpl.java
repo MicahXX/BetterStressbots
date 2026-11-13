@@ -48,7 +48,7 @@ public class FakePlayerImpl implements IFakePlayer {
         nmsPlayer = new ServerPlayer(server, level, profile, ClientInformation.createDefault());
 
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
-        new EmbeddedChannel(connection);
+        new EmbeddedChannel(new BotPacketHandler(connection), connection);
 
         // v26: factory method cookie
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(profile, false);
@@ -79,7 +79,13 @@ public class FakePlayerImpl implements IFakePlayer {
 
     @Override
     public void tick() {
-        if (nmsPlayer == null || !nmsPlayer.isAlive()) return;
+        if (nmsPlayer == null) return;
+        if (!nmsPlayer.connection.connection.isConnected()) {
+            // Embedded connections are not registered in the server's network tick loop.
+            nmsPlayer.connection.connection.handleDisconnection();
+            return;
+        }
+        if (!nmsPlayer.isAlive()) return;
 
         if (mode == BotManager.GroundMode.NONE && gotoTarget == null) return;
 
@@ -150,8 +156,11 @@ public class FakePlayerImpl implements IFakePlayer {
     @Override
     public void remove() {
         try {
-            if (nmsPlayer != null && nmsPlayer.connection != null)
+            if (nmsPlayer != null && nmsPlayer.connection != null) {
                 nmsPlayer.connection.disconnect(Component.literal("Stress bot removed"));
+                // Paper 26.x defers player removal until the connection is processed.
+                nmsPlayer.connection.connection.handleDisconnection();
+            }
         } catch (Exception ignored) {}
     }
 

@@ -1,5 +1,5 @@
 name: BetterStresstestbots
-version: 2.0.0
+version: '${version}'
 main: me.micahcode.betterStresstestbots.StressTestPlugin
 api-version: '1.21'
 description: Server-side stress testing with fake bot players

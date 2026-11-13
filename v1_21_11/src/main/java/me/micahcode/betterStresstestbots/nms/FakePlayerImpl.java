@@ -49,7 +49,7 @@ public class FakePlayerImpl implements IFakePlayer {
         nmsPlayer = new ServerPlayer(server, level, profile, ClientInformation.createDefault());
 
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
-        new EmbeddedChannel(connection);
+        new EmbeddedChannel(new BotPacketHandler(connection), connection);
 
         // v1_21_11: factory method cookie
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(profile, false);

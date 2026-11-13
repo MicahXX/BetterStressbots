@@ -11,4 +11,4 @@ plugins {
 
 rootProject.name = "BetterStresstestbots"
 
-include("core", "v1_21", "v1_21_11", "v26.1.x", "v26.2")
+include("core", "v1_21", "v1_21_11", "v26.1.x", "v26.2", "v26.3")
